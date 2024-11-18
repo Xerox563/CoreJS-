@@ -34,8 +34,6 @@ var getName2 = function () {
  * TDZ -> Period where the variable exists but hasnt been given a value yet is called Temporal Dead Zone.
  */
 
-
-
 console.log(myVar); // ReferenceError: Cannot access 'myVar' before initialization
 let myVar = 10; // same for const
 
