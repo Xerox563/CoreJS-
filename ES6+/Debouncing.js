@@ -23,7 +23,7 @@ function myDebounce(call, d) {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
       // Assign setTimeout to timer
-      call(...args); // Pass arguments to the call function
+      call(); // Pass arguments to the call function
     }, d);
   };
 }
