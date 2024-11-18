@@ -83,3 +83,43 @@ const x = arr.reduce((acc, curr) => {
   return acc; // Always return the accumulator ..
 }, 0);
 console.log(x);
+
+//* For Each -> Does Not modify the array Elements , neither it returns a new array.
+const nums = [1, 2, 3, 4, 5, 6, 7];
+nums.forEach((ele) => ele * 4);
+console.log(nums); // Same Output
+
+// * With Array of Objects
+const users = [
+  { fname: "Akshay", lname: "Kumar", age: 25 },
+  { fname: "Virat", lname: "Kohli", age: 27 },
+  { fname: "Bhubhneshwar", lname: "Kumar", age: 28 },
+  { fname: "Rohit", lname: "Sharma", age: 30 },
+  { fname: "Suresh", lname: "Raina", age: 27 },
+  { fname: "MS", lname: "Dhoni", age: 35 },
+  { fname: "Yuvraj", lname: "Singh", age: 33 },
+  { fname: "Jasprit", lname: "Bumrah", age: 26 },
+  { fname: "Hardik", lname: "Pandya", age: 27 },
+  { fname: "KL", lname: "Rahul", age: 28 },
+];
+
+// I need fname + lname
+const fn = users.map((ele) => ele.fname + " " + ele.lname);
+console.log(fn);
+
+// how Many with age 26
+const temp = filter_ele((ele) => ele.age == 26);
+
+const cnt = users.reduce((acc, curr) => {
+  if (curr.age == 27) {
+    acc += 1;
+  }
+  // console.log(acc);
+
+  return acc;
+}, 0);
+console.log(cnt);
+
+// Chaining
+const ans = users.filter((x) => x.age == 26).map((x) => x.fname);
+console.log(ans);
