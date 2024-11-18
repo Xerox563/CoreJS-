@@ -35,4 +35,22 @@ const y = x(5);
 const z = y(8);
 console.log(z);
 
+// Example-2
+
+var fun1 = function (a, b, c) {
+  return {
+    getSumTwo: function () {
+      return a + b;
+    },
+    getSumThree: function () {
+      return a + b + c;
+    },
+  };
+};
+
+var store = fun1(2, 3, 4);
+var s = store.getSumThree();
+var f = store.getSumTwo();
+console.log(s, f);
+
 // ek baar function call ho jaaye toh value retain rehti hain lost nhi hoti.
