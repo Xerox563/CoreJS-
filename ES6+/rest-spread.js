@@ -48,8 +48,17 @@ const newObj = {
 };
 console.log(newObj);
 
-/* 
+/*
 Differences Between Spread and Rest
 Spread: Expands elements into individual elements. Used in array/object literals, function calls, etc.
 Rest: Collects multiple elements and packs them into an array or object. Used in function parameters and destructuring.
 */
+
+// Practice
+var names = ["Ajay", "Raj", "Alex"];
+
+function getNames(name1, name2, name3) {
+  console.table([name1, name2, name3]);
+}
+
+getNames(...names);
