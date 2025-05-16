@@ -1,7 +1,12 @@
 import React from "react";
+import GeolocationAPI from "./apis/GeoLocationAPI";
 
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <GeolocationAPI />
+    </div>
+  );
 };
 
 export default App;
