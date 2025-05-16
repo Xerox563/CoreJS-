@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 const GeolocationAPI = () => {
   const [location, setLocation] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [watching, setWatching] = useState(false);
+  const watchIdRef = useRef(null);
 
   const getLocation = () => {
     if (!navigator.geolocation) {
@@ -29,6 +31,36 @@ const GeolocationAPI = () => {
     );
   };
 
+  const startTracking = () => {
+    if (!navigator.geolocation) {
+      setError("Geolocation is not supported by your browser");
+      return;
+    }
+
+    setError("");
+    setWatching(true);
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      (position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        });
+      },
+      (err) => {
+        setError(`Error: ${err.message}`);
+      }
+    );
+  };
+
+  const stopTracking = () => {
+    if (watchIdRef.current !== null) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      watchIdRef.current = null;
+    }
+    setWatching(false);
+  };
+
   return (
     <div
       style={{
@@ -44,7 +76,7 @@ const GeolocationAPI = () => {
       <h2
         style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}
       >
-        🌍 Geolocation API
+        Get Location
       </h2>
 
       <button
@@ -62,12 +94,45 @@ const GeolocationAPI = () => {
         Get Location
       </button>
 
+      {!watching ? (
+        <button
+          onClick={startTracking}
+          style={{
+            backgroundColor: "#28a745",
+            color: "white",
+            padding: "10px 16px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "16px",
+            marginRight: "10px",
+          }}
+        >
+          Start Tracking
+        </button>
+      ) : (
+        <button
+          onClick={stopTracking}
+          style={{
+            backgroundColor: "#dc3545",
+            color: "white",
+            padding: "10px 16px",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+            fontSize: "16px",
+          }}
+        >
+          Stop Tracking
+        </button>
+      )}
+
       {loading && (
         <p style={{ marginTop: "10px", color: "#555" }}>Fetching location...</p>
       )}
 
       {location && (
-        <div style={{ marginTop: "15px", color: "green" }}>
+        <div style={{ marginTop: "15px", marginLeft: "15px", color: "green" }}>
           <p>
             <strong>Latitude:</strong> {location.latitude}
           </p>
@@ -94,4 +159,9 @@ export default GeolocationAPI;
 navigator.geolocation.getCurrentPosition(successCallback, errorCallback):
 successCallback gets the position data, which includes latitude, longitude, and accuracy.
 errorCallback handles any error (e.g. if user denies permission).
+
+*  How It Works
+startTracking: starts real-time location updates
+stopTracking: stops the geolocation tracking
+watchIdRef: stores the ID returned by watchPosition so we can cancel it later
 */
