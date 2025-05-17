@@ -111,3 +111,34 @@ const ClipboardAPI = () => {
 };
 
 export default ClipboardAPI;
+
+/*
+⚙️ How It Works in Theory
+1. ✅ navigator.clipboard.writeText(text)
+What it does:
+
+-> Copies the given string (text) into the user’s system clipboard.
+How it works:
+
+-> The browser takes the string you provide.
+-> Stores it in the OS-level clipboard.
+-> Makes it available to paste in other apps (like Notepad, Word, etc.).
+Requirements:
+
+-> Must be called inside a user interaction (e.g. button click).
+-> No permissions prompt needed (in most browsers).
+-> Must be on a secure origin (HTTPS).
+
+2. 📥 navigator.clipboard.readText()
+What it does:
+-> Retrieves (reads) the current content of the system clipboard as a text string.
+
+How it works:
+
+-> Requests clipboard access from the browser.
+-> If allowed, grabs the current clipboard text and returns it to your app.
+Requirements:
+-> Must be inside a user-initiated event (like a button press).
+-> May trigger a permissions prompt on first use.
+-> Only works on HTTPS pages or localhost during development.
+*/
